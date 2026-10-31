@@ -4,8 +4,11 @@ Préservez les histoires orales de famille : enregistrez (ou téléversez) un pr
 l'app le transcrit puis génère une **page-souvenir**. **100 % local** : faster-whisper + Gemma via Ollama,
 aucun appel à un service cloud.
 
-![Capture d'écran](docs/capture.png)
-<!-- Ajoutez votre capture : lancez l'app, ouvrez http://localhost:8000, puis enregistrez docs/capture.png -->
+## Aperçu
+
+| Invoquer un souvenir | Page-souvenir | Le Cimetière des voix |
+|---|---|---|
+| ![Invoquer un souvenir](docs/capture.png) | ![Page-souvenir](docs/page-souvenir.png) | ![Le Cimetière des voix](docs/cimetiere-des-voix.png) |
 
 ## Installation
 Prérequis : Python 3.11+, [Ollama](https://ollama.com), ffmpeg conseillé.
