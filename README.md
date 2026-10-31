@@ -14,14 +14,14 @@ python -m venv .venv && source .venv/bin/activate   # Windows : .venv\Scripts\ac
 pip install -r requirements.txt
 ollama pull gemma3
 ```
-Le modèle Whisper « small » (~480 Mo) se télécharge **une seule fois** au premier usage ; ensuite tout fonctionne hors ligne.
+Le modèle Whisper « tiny » (~75 Mo, rapide ; passez `WHISPER_MODEL=small` pour plus de précision) se télécharge **une seule fois** au premier usage ; ensuite tout fonctionne hors ligne.
 
 ## Lancement
 ```bash
 ollama serve                      # si Ollama n'est pas déjà lancé
 uvicorn main:app --port 8000      # puis ouvrir http://localhost:8000
 ```
-Variables optionnelles : `OLLAMA_MODEL` (défaut `gemma3`), `OLLAMA_URL`, `WHISPER_MODEL` (défaut `small`).
+Variables optionnelles : `OLLAMA_MODEL` (défaut `gemma3`), `OLLAMA_URL`, `WHISPER_MODEL` (défaut `tiny`).
 
 ## Utilisation
 1. « Nouveau souvenir » : nom du conteur, parenté, langue, puis micro ou fichier (mp3, wav, m4a, webm).

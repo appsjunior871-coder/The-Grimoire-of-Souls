@@ -155,3 +155,8 @@ def accueil():
 
 
 app.mount("/static", StaticFiles(directory=BASE / "static"), name="static")
+
+
+if __name__ == "__main__":  # permet `python main.py` (utilisé par lancer.bat)
+    import uvicorn
+    uvicorn.run("main:app", host="127.0.0.1", port=8000)
