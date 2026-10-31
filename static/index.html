@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mémoire des Anciens — Le Grimoire des Âmes</title>
+<style>
+:root{
+  --fond:#050507;
+  --fond-vert:#0a120e;
+  --pierre:#141316;
+  --pierre-claire:#222026;
+  --parchemin:#d9d2c0;
+  --parchemin-pale:#8f8979;
+  --sang:#8b0000;
+  --sang-vif:#a81010;
+  --sang-sombre:#450505;
+  --spectral:#7fffd4;
+  --spectral-sombre:#1a3d34;
+  --bordure-os:#38322e;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;color:var(--parchemin);
+  font-family:Georgia,"Palatino Linotype","Book Antiqua","Times New Roman",serif;
+  font-size:1.15rem;line-height:1.65;
+  background-color:var(--fond);
+  background-image:
+    radial-gradient(ellipse 75% 55% at 20% 15%, rgba(10,25,18,0.45), transparent 70%),
+    radial-gradient(ellipse 65% 65% at 85% 85%, rgba(45,8,8,0.45), transparent 70%),
+    radial-gradient(circle at 50% 50%, var(--fond-vert) 0%, var(--fond) 90%);
+  background-attachment:fixed;
+  background-size:140% 140%;
+  animation:brume 28s ease-in-out infinite alternate;
+}
+
+/* Vignettage gothique et obscurité sur les bords */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:90;
+  box-shadow:inset 0 0 130px rgba(0,0,0,0.92), inset 0 0 50px rgba(5,5,7,0.98);
+}
+/* Trame de grain spectral */
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:91;
+  background:repeating-radial-gradient(circle at 50% 50%, transparent 0, rgba(0,0,0,0.07) 2px, transparent 4px);
+  opacity:.65;
+}
+
+@keyframes brume{
+  0%{background-position:0% 0%}
+  50%{background-position:25% 15%}
+  100%{background-position:10% 30%}
+}
+
+header{text-align:center;padding:2.6rem 1rem 1.4rem;position:relative;z-index:2}
+h1{
+  margin:0;font-weight:700;font-size:clamp(1.8rem,5.5vw,2.9rem);
+  color:var(--parchemin);letter-spacing:.22em;text-transform:uppercase;
+  text-shadow:0 0 12px rgba(139,0,0,0.85),0 0 28px rgba(139,0,0,0.4);
+  animation:lueur-titre 6s ease-in-out infinite, glitch 14s infinite;
+}
+h2,h3{
+  color:var(--parchemin);font-weight:600;margin:1.4rem 0 .5rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  text-shadow:0 0 8px rgba(139,0,0,0.6);
+}
+h2{font-size:1.55rem;border-bottom:1px solid var(--sang-sombre);padding-bottom:.4rem}
+h3{font-size:1.25rem}
+
+@keyframes lueur-titre{
+  0%,100%{text-shadow:0 0 10px rgba(139,0,0,0.8),0 0 25px rgba(139,0,0,0.35)}
+  50%{text-shadow:0 0 18px rgba(168,16,16,0.95),0 0 42px rgba(139,0,0,0.6)}
+}
+
+@keyframes glitch{
+  0%,91%,100%{transform:none;text-shadow:0 0 12px rgba(139,0,0,0.85)}
+  92%{transform:skewX(-2deg) translate(-2px,1px);text-shadow:-2px 0 var(--sang), 2px 0 var(--spectral)}
+  93%{transform:skewX(1.5deg) translate(2px,-1px);text-shadow:2px 0 var(--sang), -2px 0 var(--spectral)}
+  94%{transform:none;text-shadow:0 0 12px rgba(139,0,0,0.85)}
+}
+
+@keyframes vacillement{
+  0%,100%{box-shadow:0 0 16px rgba(139,0,0,0.25), inset 0 0 20px rgba(0,0,0,0.9)}
+  45%{box-shadow:0 0 10px rgba(139,0,0,0.15), inset 0 0 22px rgba(0,0,0,0.95)}
+  50%{box-shadow:0 0 24px rgba(168,16,16,0.4), inset 0 0 18px rgba(0,0,0,0.85)}
+  85%{box-shadow:0 0 14px rgba(139,0,0,0.22), inset 0 0 20px rgba(0,0,0,0.92)}
+}
+
+.meta-header{
+  color:var(--parchemin-pale);font-size:1.05rem;letter-spacing:.14em;
+  text-transform:uppercase;margin-top:.4rem;font-style:italic;
+}
+nav{display:flex;gap:.8rem;justify-content:center;margin:1.4rem 0 .6rem}
+
+button,.btn,select,input{font:inherit}
+button,.btn{
+  display:inline-block;
+  background:linear-gradient(155deg,#24211d,#141311);
+  color:var(--parchemin);
+  border:1px solid var(--bordure-os);
+  border-radius:3px;
+  padding:.55rem 1.4rem;
+  cursor:pointer;text-decoration:none;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;font-size:.92rem;
+  box-shadow:0 3px 8px rgba(0,0,0,0.8),inset 0 1px 0 rgba(255,255,255,0.05);
+  transition:border-color .25s,box-shadow .25s,transform .1s,color .25s;
+}
+button:hover,.btn:hover{
+  border-color:var(--sang);
+  box-shadow:0 0 16px rgba(139,0,0,0.5),inset 0 0 8px rgba(139,0,0,0.2);
+  color:#fff;
+}
+button:active,.btn:active{
+  transform:scale(0.97);
+  box-shadow:inset 0 0 14px var(--sang-sombre),0 0 6px var(--sang);
+  border-color:var(--sang-vif);
+}
+button.sec,.btn.sec{
+  background:linear-gradient(155deg,#121115,#0a0a0c);
+  color:var(--parchemin-pale);
+  border:1px solid #2d2925;
+}
+button.sec:hover,.btn.sec:hover{
+  border-color:var(--sang);
+  color:var(--parchemin);
+}
+button:disabled{opacity:.4;cursor:wait;box-shadow:none;border-color:#2a2522}
+
+main{max-width:960px;margin:auto;padding:0 1.2rem 4rem;position:relative;z-index:2}
+.grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.4rem}
+
+.carte,.panneau{
+  position:relative;
+  background:linear-gradient(165deg,rgba(24,20,24,0.92) 0%,rgba(14,15,18,0.94) 55%,rgba(9,14,12,0.96) 100%);
+  border:1px solid #3d2424;
+  border-radius:4px;
+  padding:1.4rem;
+  box-shadow:0 8px 24px rgba(0,0,0,0.8),inset 0 0 20px rgba(0,0,0,0.9);
+  animation:vacillement 8s ease-in-out infinite;
+}
+.carte{
+  cursor:pointer;
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+  overflow:hidden;
+}
+.carte::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--sang),transparent);
+  opacity:.6;
+}
+.carte::after{
+  content:"𓁿";
+  position:absolute;right:1rem;bottom:0.8rem;
+  font-size:1.8rem;color:var(--spectral);
+  opacity:.06;pointer-events:none;
+  transition:opacity .5s ease,transform .5s ease,filter .5s ease;
+}
+.carte:hover{
+  transform:translateY(-4px) rotate(.2deg);
+  border-color:#731717;
+  box-shadow:0 0 26px rgba(139,0,0,0.45),inset 0 0 20px rgba(139,0,0,0.22);
+}
+.carte:hover::after{
+  opacity:.32;
+  transform:scale(1.1);
+  filter:drop-shadow(0 0 6px var(--spectral));
+}
+.carte h3{
+  margin:0 0 .4rem;color:var(--parchemin);
+  font-size:1.2rem;letter-spacing:.08em;
+}
+.meta{color:var(--parchemin-pale);font-size:.95rem;letter-spacing:.04em;font-style:italic}
+
+label{display:block;margin:.9rem 0 .3rem;color:var(--parchemin-pale);letter-spacing:.08em;font-size:.95rem;text-transform:uppercase}
+input,select{
+  width:100%;padding:.65rem .8rem;border-radius:3px;
+  border:1px solid #3d2d2b;
+  background:#090a0c;color:var(--parchemin);
+  box-shadow:inset 0 2px 6px rgba(0,0,0,0.8);
+  transition:border-color .2s,box-shadow .2s;
+}
+input:focus,select:focus{
+  outline:none;
+  border-color:var(--sang);
+  box-shadow:0 0 10px rgba(139,0,0,0.5),inset 0 0 6px rgba(0,0,0,0.9);
+}
+
+.ligne{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.3rem;align-items:center}
+
+/* Filet de sang pour la barre de progression */
+.barre{
+  height:16px;background:#09090c;
+  border-radius:3px;overflow:hidden;
+  margin:1.4rem 0;
+  border:1px solid #451010;
+  box-shadow:inset 0 0 8px #000;
+  position:relative;
+}
+.barre i{
+  display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#3d0000 0%,var(--sang) 60%,var(--sang-vif) 100%);
+  box-shadow:0 0 14px var(--sang);
+  transition:width .45s ease;
+}
+
+.erreur{
+  background:linear-gradient(160deg,#240808,#120404);
+  border:1px solid #801818;
+  border-left:4px solid var(--sang-vif);
+  border-radius:3px;padding:.85rem 1.1rem;margin:1.2rem 0;
+  color:#f2c4c4;
+  box-shadow:0 0 18px rgba(139,0,0,0.35);
+}
+
+.puces span{
+  display:inline-block;margin:.2rem .3rem .2rem 0;
+  padding:.15rem .8rem;border-radius:2px;
+  border:1px solid #3d2b2b;
+  background:rgba(20,16,18,0.8);
+  color:var(--parchemin);
+  font-size:.95rem;letter-spacing:.05em;
+  box-shadow:inset 0 0 6px rgba(0,0,0,0.6);
+}
+
+blockquote{
+  margin:.9rem 0;padding:.6rem 1.2rem;
+  border-left:3px solid var(--sang);
+  font-style:italic;background:rgba(139,0,0,0.09);
+  color:#e8decb;
+  box-shadow:inset 0 0 10px rgba(0,0,0,0.4);
+}
+
+audio{
+  width:100%;margin:1rem 0;
+  filter:invert(.88) hue-rotate(180deg) contrast(1.2);
+}
+
+.vide{text-align:center;color:var(--parchemin-pale);padding:3.5rem 0;font-style:italic;letter-spacing:.06em}
+
+details{margin:1.2rem 0;border-top:1px solid #2b2321;padding-top:.8rem}
+details summary{
+  cursor:pointer;color:var(--spectral);
+  letter-spacing:.08em;font-size:1.05rem;
+  text-shadow:0 0 8px rgba(127,255,212,0.25);
+  transition:color .2s;
+}
+details summary:hover{color:#a8ffea}
+.trans{
+  white-space:pre-wrap;background:rgba(5,6,8,0.8);
+  padding:1rem;border-left:2px solid #332626;
+  font-size:1.02rem;color:#c9c0b1;
+  box-shadow:inset 0 0 12px rgba(0,0,0,0.8);
+}
+
+#rec.on{
+  background:linear-gradient(155deg,#7a0000,#b00c0c);
+  color:#fff;
+  border-color:#ff4444;
+  box-shadow:0 0 20px rgba(180,12,12,0.75),inset 0 0 10px rgba(0,0,0,0.5);
+  animation:vacillement 1.2s infinite;
+}
+
+/* Accessibilité : réduction des mouvements */
+@media (prefers-reduced-motion: reduce){
+  body{animation:none}
+  h1{animation:none}
+  .carte,.panneau{animation:none}
+  .carte:hover{transform:none}
+  #rec.on{animation:none}
+  *{transition-duration:0.01ms !important}
+}
+</style></head><body>
+<header>
+  <h1>🕯️ Mémoire des Anciens</h1>
+  <div class="meta-header">Reliquaire des voix capturées · Grimoire des ancêtres</div>
+  <nav>
+    <a class="btn sec" href="#/">Le cimetière des voix</a>
+    <a class="btn" href="#/nouveau">+ Invoquer une âme</a>
+  </nav>
+</header>
+<main id="app"></main>
+<script>
+const $=s=>document.querySelector(s), app=$('#app');
+const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let blob=null, rec=null, stream=null, timer=null;
+
+async function api(u,o){
+  let r;
+  try{r=await fetch(u,o)}
+  catch{throw Error("Le grimoire ne répond pas. Relancez l'application.")}
+  if(!r.ok){
+    let m=`Erreur rituelle ${r.status}`;
+    try{m=(await r.json()).detail||m}catch{}
+    throw Error(m)
+  }
+  return r;
+}
+
+const erreur=m=>`<div class="erreur">⚠️ ${esc(m)}</div>`;
+const puces=(t,a)=>a?.length?`<h3>${t}</h3><div class="puces">${a.map(x=>`<span>${esc(x)}</span>`).join('')}</div>`:'';
+
+async function accueil(){
+  app.innerHTML='<p class="vide">Consultation du grimoire des morts…</p>';
+  try{
+    const l=await(await api('/api/souvenirs')).json();
+    app.innerHTML=l.length?`<div class="grille">${l.map(m=>`<div class="carte" onclick="location.hash='#/souvenir/${m.id}'">
+      <h3>${esc(m.analyse?.titre||'Voix de '+(m.conteur||'Un aïeul'))}</h3>
+      <div class="meta">${esc(m.conteur||'Voix anonyme')}${m.parente?' · '+esc(m.parente):''} · ${esc((m.cree_le||'').slice(0,10))}</div>
+      <p>${esc(m.analyse?.resume||(m.transcription||'').slice(0,140)||(m.statut==='erreur'?'Rituel interrompu.':'Invocation en cours…'))}</p>
+    </div>`).join('')}</div>`
+    :'<p class="vide">Le reliquaire est silencieux.<br>Invoquez une première voix pour éveiller le grimoire.</p>';
+  }catch(e){app.innerHTML=erreur(e.message)}
+}
+
+function nouveau(){
+  blob=null;
+  app.innerHTML=`<div class="panneau">
+    <h2 style="margin-top:0">Invoquer un souvenir</h2>
+    <label>Nom de l'aïeul ou du conteur</label>
+    <input id="nom" placeholder="Mama Ama, Grand-père Paul…">
+    <label>Lien de sang / parenté</label>
+    <input id="par" placeholder="grand-mère maternelle, patriarche…">
+    <label>Langue de la voix</label>
+    <select id="lg">
+      <option value="fr">Français</option>
+      <option value="en">Anglais</option>
+      <option value="ee">Éwé</option>
+      <option value="kbp">Kabiyè</option>
+      <option value="auto">Autre / détection spectrale</option>
+    </select>
+    <div class="ligne">
+      <button id="rec">🎙️ Capter la voix</button>
+      <span class="meta">ou lier un enregistrement :</span>
+      <input type="file" id="fic" accept=".mp3,.wav,.m4a,.webm,.ogg,audio/*" style="flex:1;min-width:200px">
+    </div>
+    <div id="etat" class="meta" style="margin-top:.6rem"></div>
+    <audio id="pre" controls hidden></audio>
+    <div class="ligne">
+      <button id="go" disabled>Lier la voix au grimoire</button>
+    </div>
+    <div id="msg"></div>
+  </div>`;
+  $('#rec').onclick=toggleRec;
+  $('#go').onclick=envoyer;
+  $('#fic').onchange=e=>{const f=e.target.files[0];if(f)setBlob(f,f.name)};
+}
+
+function setBlob(b,nom){
+  blob={b,nom};
+  $('#pre').src=URL.createObjectURL(b);
+  $('#pre').hidden=false;
+  $('#go').disabled=false;
+  $('#etat').textContent='Vocalise capturée : '+nom;
+}
+
+async function toggleRec(){
+  const btn=$('#rec');
+  if(rec&&rec.state==='recording'){rec.stop();return}
+  if(!navigator.mediaDevices?.getUserMedia){
+    $('#msg').innerHTML=erreur("Le réceptacle ne permet pas la capture audio (utilisez http://localhost ou HTTPS).");
+    return;
+  }
+  try{stream=await navigator.mediaDevices.getUserMedia({audio:true})}
+  catch(e){
+    $('#msg').innerHTML=erreur(e.name==='NotAllowedError'?"Accès au micro refusé. Autorisez l'accès dans votre navigateur.":"Aucun capteur audio utilisable détecté.");
+    return;
+  }
+  const ch=[];rec=new MediaRecorder(stream);let t0=Date.now();
+  rec.ondataavailable=e=>ch.push(e.data);
+  rec.onstop=()=>{
+    clearInterval(timer);
+    stream.getTracks().forEach(t=>t.stop());
+    btn.classList.remove('on');
+    btn.textContent='🎙️ Réenregistrer la voix';
+    setBlob(new Blob(ch,{type:rec.mimeType}),'vocalise.webm');
+  };
+  rec.start();
+  btn.classList.add('on');
+  timer=setInterval(()=>btn.textContent=`⏹️ Sceller la prise (${Math.floor((Date.now()-t0)/1000)} s)`,500);
+}
+
+async function envoyer(){
+  if(!blob)return;
+  $('#go').disabled=true;
+  const fd=new FormData();
+  fd.append('audio',blob.b,blob.nom);
+  fd.append('conteur',$('#nom').value);
+  fd.append('parente',$('#par').value);
+  fd.append('langue',$('#lg').value);
+  try{
+    const{id}=await(await api('/api/souvenirs',{method:'POST',body:fd})).json();
+    suivre(id);
+  }catch(e){
+    $('#msg').innerHTML=erreur(e.message);
+    $('#go').disabled=false;
+  }
+}
+
+function suivre(id){
+  app.innerHTML=`<div class="panneau">
+    <h2 style="margin-top:0" id="et">Invocation des esprits…</h2>
+    <div class="barre"><i id="bar"></i></div>
+    <div class="meta">Les ondes parcourent votre machine locale. L'éveil de la voix peut prendre quelques instants.</div>
+    <div id="msg"></div>
+  </div>`;
+  const noms={
+    attente:'Pénombre…',
+    transcription:'Les esprits écoutent la voix…',
+    analyse:'La machine invoque et rédige les souvenirs…'
+  };
+  const t=setInterval(async()=>{
+    try{
+      const s=await(await api(`/api/souvenirs/${id}/statut`)).json();
+      $('#bar').style.width=s.progression+'%';
+      $('#et').textContent=noms[s.etape]||'Âme liée';
+      if(s.etape==='termine'){
+        clearInterval(t);
+        location.hash='#/souvenir/'+id;
+      }
+      if(s.etape==='erreur'){
+        clearInterval(t);
+        $('#msg').innerHTML=erreur(s.erreur)+'<div class="ligne"><button class="btn" onclick="relancer(\''+id+'\')">🔄 Réessayer le rituel</button><a class="btn sec" href="#/nouveau">Invoquer une autre voix</a></div>';
+      }
+    }catch(e){
+      clearInterval(t);
+      $('#msg').innerHTML=erreur(e.message);
+    }
+  },800);
+}
+
+async function relancer(id){
+  app.innerHTML='<p class="vide">Réveil du rituel spectral…</p>';
+  try{
+    await api(`/api/souvenirs/${id}/relancer`,{method:'POST'});
+    suivre(id);
+  }catch(e){
+    app.innerHTML=erreur(e.message)+`<div class="ligne"><a class="btn sec" href="#/souvenir/${id}">Retour au souvenir</a></div>`;
+  }
+}
+
+async function souvenir(id){
+  app.innerHTML='<p class="vide">Rappel de la mémoire…</p>';
+  try{
+    const m=await(await api('/api/souvenirs/'+id)).json(), a=m.analyse;
+    app.innerHTML=`<div class="panneau">
+      <h2 style="margin-top:0;font-size:1.9rem">${esc(a?.titre||'Voix de '+(m.conteur||'Un aïeul'))}</h2>
+      <div class="meta">Transmis par ${esc(m.conteur||'Voix anonyme')}${m.parente?' ('+esc(m.parente)+')':''} · ${esc((m.cree_le||'').slice(0,10))}</div>
+      <audio controls src="/api/souvenirs/${m.id}/audio"></audio>
+      ${m.avertissement?erreur(m.avertissement):''}
+      ${(m.statut==='erreur'||(!a&&m.avertissement))?`<div style="margin:.9rem 0"><button class="btn" onclick="relancer('${m.id}')">🔄 Relancer le rituel</button></div>`:''}
+      ${a?`<h3>Condensé des mémoires</h3>
+      <p>${esc(a.resume||'')}</p>
+      <h3>Portrait spectral</h3>
+      <p>${esc(a.portrait||'')}</p>
+      ${puces('Âmes croisées',a.personnes)}
+      ${puces('Lieux hantés de souvenirs',a.lieux)}
+      ${puces('Époques & Dates',a.dates)}
+      ${a.proverbes?.length?'<h3>Paroles gravées dans la pierre</h3>'+a.proverbes.map(p=>`<blockquote>${esc(p)}</blockquote>`).join(''):''}`:''}
+      <details ${a?'':'open'}>
+        <summary>Transcription brute des limbes</summary>
+        <p class="trans">${esc(m.transcription||'(Voix inaudible ou perdue)')}</p>
+      </details>
+      <div class="ligne">
+        <a class="btn" href="/api/souvenirs/${m.id}/export">⬇️ Libérer l'âme (Markdown)</a>
+        <a class="btn sec" href="#/">Retourner au cimetière des voix</a>
+      </div>
+    </div>`;
+  }catch(e){
+    app.innerHTML=erreur(e.message);
+  }
+}
+
+function route(){
+  clearInterval(timer);
+  const h=location.hash||'#/';
+  if(h==='#/nouveau')nouveau();
+  else if(h.startsWith('#/souvenir/'))souvenir(h.split('/')[2]);
+  else accueil();
+}
+
+addEventListener('hashchange',route);
+route();
+</script></body></html>
